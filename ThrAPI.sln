@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThrAPI", "ThrAPI\ThrAPI.csproj", "{FBAF922A-8600-4615-8369-5A7F69D291BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBAF922A-8600-4615-8369-5A7F69D291BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBAF922A-8600-4615-8369-5A7F69D291BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBAF922A-8600-4615-8369-5A7F69D291BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBAF922A-8600-4615-8369-5A7F69D291BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {908A13E8-EE70-4899-BFD1-3F7823854DD0}
+	EndGlobalSection
+EndGlobal
