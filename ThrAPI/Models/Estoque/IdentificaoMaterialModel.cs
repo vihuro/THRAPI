@@ -8,7 +8,7 @@ namespace ThrAPI.Models.Estoque
     public class IdentificaoMaterialModel
     {
         [Key()]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [ForeignKey("tab_Estoque")]
         public Guid ProdutoId { get; set; }
         public virtual EstoqueModel Produto { get; set; }

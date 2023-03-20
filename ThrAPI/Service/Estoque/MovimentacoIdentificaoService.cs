@@ -7,7 +7,7 @@ using ThrAPI.Dto.Estoque.MovimetacaoIdentificao;
 using ThrAPI.Interface.Estoque;
 using ThrAPI.Models.Estoque;
 
-namespace ThrAPI.Service.Mapping.Estoque
+namespace ThrAPI.Service.Estoque
 {
     public class MovimentacoIdentificaoService
     {
@@ -20,20 +20,20 @@ namespace ThrAPI.Service.Mapping.Estoque
                                              IiDentificaoMaterialService identificaoService,
                                              ILocalEstocagemService localEstocagemService)
         {
-            this._mapper = mapper;
-            this._context = context;
-            this._identificaoService = identificaoService;
-            this._localEstocagemService = localEstocagemService;
+            _mapper = mapper;
+            _context = context;
+            _identificaoService = identificaoService;
+            _localEstocagemService = localEstocagemService;
         }
         public ReturnIdentificationDto InsertMovimentacao(InsertMovimentacaoIdentificaoDto dto)
         {
             var identificao = _identificaoService.SelectFromId(dto.IdIdentificao);
-            if(identificao == null)
+            if (identificao == null)
             {
                 throw new ExceptionService("Identificação não encontrada") { HResult = 404 };
             }
             var local = _localEstocagemService.SelectForId(dto.IdIdentificao);
-            if(local == null)
+            if (local == null)
             {
                 throw new ExceptionService("Local de estocagem não econtrado!") { HResult = 404 };
             }
@@ -61,7 +61,7 @@ namespace ThrAPI.Service.Mapping.Estoque
 
             return identificao;
         }
-        public ReturnIdentificationDto Insert(InsertMovimentacaoIdentificaoDto dto, 
+        public ReturnIdentificationDto Insert(InsertMovimentacaoIdentificaoDto dto,
                                              Guid LocalOrigem, Guid LocalDestino)
         {
             var obj = new MovimentacaoIdentificaoModel()
@@ -78,14 +78,14 @@ namespace ThrAPI.Service.Mapping.Estoque
             return _mapper.Map<MovimentacaoIdentificaoModel, ReturnIdentificationDto>(obj);
         }
 
-        public ReturnIdentificationDto SelectFromId(Guid id)
+        public ReturnIdentificationDto SelectFromId(int id)
         {
             var obj = _context.MovimentacaoIdentificao
                 .Include(u => u.Usuario)
                 .Include(p => p.IdentificaoMaterial.Produto)
                 .Include(x => x.IdentificaoMaterial)
                 .AsNoTracking()
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefault(x => x.IdentificaoMaterialId == id);
             return _mapper.Map<MovimentacaoIdentificaoModel, ReturnIdentificationDto>(obj);
         }
     }

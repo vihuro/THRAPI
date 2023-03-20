@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace ThrAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class TableClaims : Migration
+    public partial class AlteradoIdIdentificaoParaTipoINT : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,6 +99,7 @@ namespace ThrAPI.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     NomeLocal = table.Column<string>(type: "text", nullable: false),
+                    NumeroLocal = table.Column<int>(type: "integer", nullable: false),
                     StatusLocal = table.Column<string>(type: "text", nullable: false),
                     DataHoraCriacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -126,11 +128,9 @@ namespace ThrAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ClaimId = table.Column<Guid>(type: "uuid", nullable: false),
                     ClaimsTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     UsuarioId = table.Column<Guid>(type: "uuid", nullable: false),
                     UsuarioCadastroId = table.Column<Guid>(type: "uuid", nullable: false),
-                    UsuarioCadatroId = table.Column<Guid>(type: "uuid", nullable: false),
                     DataHoraCadastro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UsuarioAlteracaoId = table.Column<Guid>(type: "uuid", nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -151,8 +151,8 @@ namespace ThrAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tab_Claims_tab_Usuario_UsuarioCadatroId",
-                        column: x => x.UsuarioCadatroId,
+                        name: "FK_tab_Claims_tab_Usuario_UsuarioCadastroId",
+                        column: x => x.UsuarioCadastroId,
                         principalTable: "tab_Usuario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -168,7 +168,8 @@ namespace ThrAPI.Migrations
                 name: "Tab_IdentificaoMaterial",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProdutoId = table.Column<Guid>(type: "uuid", nullable: false),
                     Lote = table.Column<string>(type: "text", nullable: true),
                     PesoPalete = table.Column<decimal>(type: "numeric", nullable: true),
@@ -178,16 +179,19 @@ namespace ThrAPI.Migrations
                     UsuarioCadastroId = table.Column<Guid>(type: "uuid", nullable: false),
                     DataHoraCadastro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UsuarioAlteracaoId = table.Column<Guid>(type: "uuid", nullable: false),
-                    tab_Usuario = table.Column<Guid>(type: "uuid", nullable: false),
                     DataHoraAlteracao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    IF = table.Column<decimal>(type: "numeric", nullable: true),
+                    IF = table.Column<string>(type: "text", nullable: true),
                     Densidade = table.Column<decimal>(type: "numeric", nullable: true),
-                    TipoMaterial = table.Column<string>(type: "text", nullable: false),
-                    MovimentacaoIdentificaoId = table.Column<Guid>(type: "uuid", nullable: false)
+                    LocalEstocagemId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tab_IdentificaoMaterial", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tab_IdentificaoMaterial_Tab_LocaisEstocagem_LocalEstocagemId",
+                        column: x => x.LocalEstocagemId,
+                        principalTable: "Tab_LocaisEstocagem",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Tab_IdentificaoMaterial_tab_Estoque_ProdutoId",
                         column: x => x.ProdutoId,
@@ -195,14 +199,14 @@ namespace ThrAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tab_IdentificaoMaterial_tab_Usuario_UsuarioCadastroId",
-                        column: x => x.UsuarioCadastroId,
+                        name: "FK_Tab_IdentificaoMaterial_tab_Usuario_UsuarioAlteracaoId",
+                        column: x => x.UsuarioAlteracaoId,
                         principalTable: "tab_Usuario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tab_IdentificaoMaterial_tab_Usuario_tab_Usuario",
-                        column: x => x.tab_Usuario,
+                        name: "FK_Tab_IdentificaoMaterial_tab_Usuario_UsuarioCadastroId",
+                        column: x => x.UsuarioCadastroId,
                         principalTable: "tab_Usuario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -213,7 +217,8 @@ namespace ThrAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    IdentificaoMaterialId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IdentificaoMaterialId = table.Column<int>(type: "integer", nullable: false),
+                    tab_MovimentacaoIdentificacao = table.Column<int>(type: "integer", nullable: false),
                     UsuarioId = table.Column<Guid>(type: "uuid", nullable: false),
                     tab_Usuario = table.Column<Guid>(type: "uuid", nullable: false),
                     DataHoraMovimentacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -225,8 +230,8 @@ namespace ThrAPI.Migrations
                 {
                     table.PrimaryKey("PK_tab_MovimentacaoIdentificacao", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_tab_MovimentacaoIdentificacao_Tab_IdentificaoMaterial_Ident~",
-                        column: x => x.IdentificaoMaterialId,
+                        name: "FK_tab_MovimentacaoIdentificacao_Tab_IdentificaoMaterial_tab_M~",
+                        column: x => x.tab_MovimentacaoIdentificacao,
                         principalTable: "Tab_IdentificaoMaterial",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -261,7 +266,7 @@ namespace ThrAPI.Migrations
                     StatusMovimentacao = table.Column<string>(type: "text", nullable: false),
                     EstoqueId = table.Column<Guid>(type: "uuid", nullable: false),
                     UsuarioMovimentacaoId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IdentificaoId = table.Column<Guid>(type: "uuid", nullable: true)
+                    IdentificaoId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -296,9 +301,9 @@ namespace ThrAPI.Migrations
                 column: "UsuarioAlteracaoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tab_Claims_UsuarioCadatroId",
+                name: "IX_tab_Claims_UsuarioCadastroId",
                 table: "tab_Claims",
-                column: "UsuarioCadatroId");
+                column: "UsuarioCadastroId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tab_Claims_UsuarioId",
@@ -326,14 +331,19 @@ namespace ThrAPI.Migrations
                 column: "UsuarioCadastroId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tab_IdentificaoMaterial_LocalEstocagemId",
+                table: "Tab_IdentificaoMaterial",
+                column: "LocalEstocagemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tab_IdentificaoMaterial_ProdutoId",
                 table: "Tab_IdentificaoMaterial",
                 column: "ProdutoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tab_IdentificaoMaterial_tab_Usuario",
+                name: "IX_Tab_IdentificaoMaterial_UsuarioAlteracaoId",
                 table: "Tab_IdentificaoMaterial",
-                column: "tab_Usuario");
+                column: "UsuarioAlteracaoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tab_IdentificaoMaterial_UsuarioCadastroId",
@@ -351,11 +361,6 @@ namespace ThrAPI.Migrations
                 column: "UsuarioCadastroId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tab_MovimentacaoIdentificacao_IdentificaoMaterialId",
-                table: "tab_MovimentacaoIdentificacao",
-                column: "IdentificaoMaterialId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_tab_MovimentacaoIdentificacao_LocalDestinoId",
                 table: "tab_MovimentacaoIdentificacao",
                 column: "LocalDestinoId");
@@ -364,6 +369,11 @@ namespace ThrAPI.Migrations
                 name: "IX_tab_MovimentacaoIdentificacao_LocalOrigemId",
                 table: "tab_MovimentacaoIdentificacao",
                 column: "LocalOrigemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tab_MovimentacaoIdentificacao_tab_MovimentacaoIdentificacao",
+                table: "tab_MovimentacaoIdentificacao",
+                column: "tab_MovimentacaoIdentificacao");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tab_MovimentacaoIdentificacao_tab_Usuario",
@@ -402,10 +412,10 @@ namespace ThrAPI.Migrations
                 name: "tab_ClaimsType");
 
             migrationBuilder.DropTable(
-                name: "Tab_LocaisEstocagem");
+                name: "Tab_IdentificaoMaterial");
 
             migrationBuilder.DropTable(
-                name: "Tab_IdentificaoMaterial");
+                name: "Tab_LocaisEstocagem");
 
             migrationBuilder.DropTable(
                 name: "tab_Estoque");

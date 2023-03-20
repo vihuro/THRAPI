@@ -72,5 +72,10 @@ namespace ThrAPI.Service.Estoque
                 .FirstOrDefault(x => x.Id == id);
             return mapper.Map<LocaisEstocagemModel, LocalEstocagemDto>(obj);
         }
+
+        public LocalEstocagemDto SelectForId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace ThrAPI.Dto.Estoque.IdentificaoMaterial
 {
     public class ReturnIdentificationDto
     {
-        public Guid IdentificacaoId { get; set; }
+        public int IdentificacaoId { get; set; }
         public ProdutoEstoqueResumidoDto Produto { get; set; }
         public decimal Quantidade { get; set; }
         public decimal PesoPalete { get; set; }

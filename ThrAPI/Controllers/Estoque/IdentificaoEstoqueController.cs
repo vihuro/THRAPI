@@ -43,12 +43,20 @@ namespace ThrAPI.Controllers.Estoque
             }
         }
         [HttpGet("{id}")]
-        public string SelectForId(Guid id)
+        public ActionResult<ReturnIdentificationDto> SelectForId(int id)
         {
-            return "PorID";
+            try
+            {
+                return Ok(service.SelectFromId(id));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPut("{id}")]
-        public string UpdateId(Guid id) 
+        public string UpdateId(int id) 
         {
             return "AtualirPorId";
         }

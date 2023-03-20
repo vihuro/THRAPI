@@ -94,9 +94,11 @@ namespace ThrAPI.Migrations
 
             modelBuilder.Entity("ThrAPI.Models.Estoque.IdentificaoMaterialModel", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataHoraAlteracao")
                         .HasColumnType("timestamp with time zone");
@@ -197,8 +199,8 @@ namespace ThrAPI.Migrations
                     b.Property<DateTime>("DataHoraMovimentacao")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("IdentificaoMaterialId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("IdentificaoMaterialId")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("LocalDestinoId")
                         .HasColumnType("uuid");
@@ -212,8 +214,8 @@ namespace ThrAPI.Migrations
                     b.Property<Guid>("UsuarioId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("tab_MovimentacaoIdentificacao")
-                        .HasColumnType("uuid");
+                    b.Property<int>("tab_MovimentacaoIdentificacao")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("tab_Usuario")
                         .HasColumnType("uuid");
@@ -243,8 +245,8 @@ namespace ThrAPI.Migrations
                     b.Property<Guid>("EstoqueId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("IdentificaoId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("IdentificaoId")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("QuantidadeMovimentada")
                         .HasColumnType("numeric");

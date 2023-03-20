@@ -22,7 +22,7 @@ namespace ThrAPI.Models.Estoque
         public Guid UsuarioMovimentacaoId { get; set; }
         public virtual UsuarioModel UsuarioMovimentacao { get; set; }
         [ForeignKey("Tab_IdentificaoMaterial")]
-        public Guid? IdentificaoId { get; set; }
+        public int? IdentificaoId { get; set; }
         public virtual IdentificaoMaterialModel Identificao { get; set; }
     }
 }

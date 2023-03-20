@@ -54,7 +54,7 @@ namespace ThrAPI.Service.Estoque
             return SelectFromId(obj.Id);
         }
 
-        public ReturnIdentificationDto SelectFromId(Guid id)
+        public ReturnIdentificationDto SelectFromId(int id)
         {
             var obj = context.IdentificaoMaterial
                 .Include(u => u.UsuarioAlteracao)

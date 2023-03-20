@@ -6,7 +6,7 @@ namespace ThrAPI.Interface.Estoque
     {
         ReturnIdentificationDto Insert(CreateIdentificationDto dto);
         List<ReturnIdentificationDto> SelectList();
-        ReturnIdentificationDto SelectFromId(Guid id);
+        ReturnIdentificationDto SelectFromId(int id);
         ReturnIdentificationDto UpdateIdentificao(UpdateIdentificaoDto dto);
         string DeleteAll();
 

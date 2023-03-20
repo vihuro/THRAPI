@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9uUdYnxO/mc3ksOZb5cYlvrPH8DQ819JZj5glNIAmetfko1d6G17F5z1gpDexM8mpofVvqLi223/wpDT+OaVaQ==",
+  "dgSpecHash": "3AOZmySzoLpdktWGZZrtCVBcrRWXloe989EFF+9s2d0TrxWyeB2At/8kfzE8E4HJh5WRdBZf35g65j8IdZC1yw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\thr\\Desktop\\API\\ThrApi\\ThrAPI\\ThrAPI.csproj",
+  "projectFilePath": "C:\\Users\\thr\\source\\repos\\THRAPI\\ThrAPI\\ThrAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thr\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\thr\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

@@ -8,6 +8,6 @@ namespace ThrAPI.Interface.Estoque
         List<LocalEstocagemDto> TodosLocais();
         string DeleteTodosLocais();
         LocalEstocagemDto AtualizarLocal(AtualizarLocalDto dto);
-        LocalEstocagemDto SelectForId(Guid id);
+        LocalEstocagemDto SelectForId(int id);
     }
 }
